@@ -1,5 +1,6 @@
 #!/bin/bash
 
+$(git fetch)
 self=$(basename "${0}")
 selfcheck="git diff origin/main --quiet ${self}"
 
