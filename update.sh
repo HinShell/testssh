@@ -22,3 +22,4 @@ function autoCheckout {
 }
 
 selftest "${selfcheck}" "script auto update." || autoCheckout ${self}
+echo "OK"
