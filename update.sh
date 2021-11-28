@@ -18,6 +18,7 @@ function autoCheckout {
     local checkout="${1}"
     local cmd="git checkout ${checkout} --quiet"
     selftest "${cmd}" "error with ${cmd}" || exit 1
+    ./${self} & exit 0
 }
 
 selftest "${selfcheck}" "script auto update." || autoCheckout ${self}
