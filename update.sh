@@ -1,15 +1,15 @@
 #!/bin/bash
-# comment
-self=`basename "$0"`
-#echo $self
-#a=$(git diff origin/main --quiet $self)
-#echo $?
-function mytest {
-    $($@)
-    local status=$?
+
+self=$(basename "${0}")
+selfcheck="git diff origin/main --quiet ${self}"
+
+function selftest {
+    msg="${2}"
+    $(${1})
+    local status=${?}
     if (( status != 0 )); then
-        echo "error with $1" >&2
+        echo "${msg}" >&2
     fi
-    return $status
+    return ${status}
 }
-mytest "git diff origin/main --quiet $self"
+selftest "${selfcheck}" "script auto update."
