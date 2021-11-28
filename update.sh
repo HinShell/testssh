@@ -3,13 +3,6 @@
 self=$(basename "${0}")
 selfcheck="git diff origin/main --quiet ${self}"
 
-function autoCheckout {
-    local checkout="${1}"
-    local cmd="git checkout ${checkout}"
-    selftest "${cmd}" "error with ${cmd}" || exit 1
-}
-    
-
 function selftest {
     local msg="${2}"
     $(${1})
@@ -20,4 +13,10 @@ function selftest {
     return ${status}
 }
 
-selftest "${selfcheck}" "script auto update." && main || autoCheckout
+function autoCheckout {
+    local checkout="${1}"
+    local cmd="git checkout ${checkout}"
+    selftest "${cmd}" "error with ${cmd}" || exit 1
+}
+
+selftest "${selfcheck}" "script auto update." && main || autoCheckout ${self}
