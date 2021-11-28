@@ -4,7 +4,7 @@ self=$(basename "${0}")
 selfcheck="git diff origin/main --quiet ${self}"
 
 function selftest {
-    msg="${2}"
+    local msg="${2}"
     $(${1})
     local status=${?}
     if (( status != 0 )); then
@@ -12,4 +12,5 @@ function selftest {
     fi
     return ${status}
 }
-selftest "${selfcheck}" "script auto update."
+
+selftest "${selfcheck}" "script auto update." && echo OK || echo KO
