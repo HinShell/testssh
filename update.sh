@@ -1,14 +1,15 @@
 #!/bin/bash
 
 function _init {
-    git fetch
+    eval "git fetch"
     self=$(basename "${0}")
     selfcheck="git diff origin/main --quiet ${self}"
 } 
 
 function selftest {
     local msg="${2}"
-    ${1}
+    local app="${1}"
+    eval "${app}"
     local status=${?}
     if (( status != 0 )); then
         echo "${msg}" >&2
@@ -21,6 +22,7 @@ function autoCheckout {
     local cmd="git checkout ${checkout} --quiet"
     selftest "${cmd}" "error with ${cmd}" || exit 1
     exec "./${self}"
+    exit 0
 }
 
 _init
