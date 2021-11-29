@@ -1,8 +1,10 @@
 #!/bin/bash
 
-git fetch
-self=$(basename "${0}")
-selfcheck="git diff origin/main --quiet ${self}"
+function _init {
+    git fetch
+    self=$(basename "${0}")
+    selfcheck="git diff origin/main --quiet ${self}"
+} 
 
 function selftest {
     local msg="${2}"
@@ -21,5 +23,6 @@ function autoCheckout {
     exec "./${self}"
 }
 
+_init
 selftest "${selfcheck}" "script auto update." || autoCheckout "${self}"
 echo "OK"
